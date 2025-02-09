@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import TabNavigation from "@/components/TabNavigation";
 import ProductsTab from "@/components/ProductsTab";
@@ -107,12 +108,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className={`container ${isMobile ? 'px-2 py-4' : 'py-6'} space-y-6`}>
+      <div className={`container ${isMobile ? 'px-2 py-4' : 'py-6'} space-y-4`}>
         <h1 className="text-xl md:text-2xl font-bold text-center text-primary">Wechselgeld-Rechner</h1>
         
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
         
-        <div className="py-4">
+        <div className="py-2">
           {activeTab === "products" && (
             <ProductsTab 
               products={products} 
