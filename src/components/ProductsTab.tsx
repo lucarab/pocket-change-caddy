@@ -1,5 +1,5 @@
 
-import { Plus, CreditCard, ArrowDown } from "lucide-react";
+import { Plus, CreditCard, ArrowDown, ShoppingCart } from "lucide-react";
 import { Product } from "@/types/types";
 import { formatPrice } from "@/utils/money";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -33,7 +33,7 @@ const ProductsTab = ({ products, onAddToCart, onCheckout, onReturnDeposit }: Pro
             )}
             <button
               onClick={() => onAddToCart(product)}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-primary/90 text-primary-foreground rounded-md hover:bg-primary transition-colors text-sm md:text-base font-medium"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-primary/90 text-primary-foreground rounded-md hover:bg-primary transition-colors active:scale-95 transition-transform text-sm md:text-base font-medium"
             >
               <Plus className="w-4 h-4" />
               <span>Zum Warenkorb</span>
@@ -46,16 +46,16 @@ const ProductsTab = ({ products, onAddToCart, onCheckout, onReturnDeposit }: Pro
           onClick={onCheckout}
           className={`flex items-center gap-2 ${
             isMobile ? 'w-full justify-center' : ''
-          } px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm md:text-base font-medium shadow-sm`}
+          } px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 active:scale-95 transition-all text-sm md:text-base font-medium shadow-sm`}
         >
-          <CreditCard className="w-5 h-5" />
-          <span>Bezahlen</span>
+          <ShoppingCart className="w-5 h-5" />
+          <span>Zum Warenkorb</span>
         </button>
         <button
           onClick={onReturnDeposit}
           className={`flex items-center gap-2 ${
             isMobile ? 'w-full justify-center' : ''
-          } px-6 py-3 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors text-sm md:text-base font-medium shadow-sm`}
+          } px-6 py-3 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 active:scale-95 transition-all text-sm md:text-base font-medium shadow-sm`}
         >
           <ArrowDown className="w-5 h-5" />
           <span>Pfand zurückgeben</span>

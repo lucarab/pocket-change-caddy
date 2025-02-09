@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import TabNavigation from "@/components/TabNavigation";
 import ProductsTab from "@/components/ProductsTab";
@@ -81,7 +80,7 @@ const Index = () => {
   };
 
   const handleCheckout = () => {
-    setActiveTab("change");
+    setActiveTab("cart");
   };
 
   const handleUpdateProducts = (newProducts: Product[]) => {
@@ -122,7 +121,7 @@ const Index = () => {
               onRemoveItem={handleRemoveItem}
               onClearCart={handleClearCart}
               onReturnDeposit={handleReturnDeposit}
-              onCheckout={handleCheckout}
+              onCheckout={() => setActiveTab("change")}
             />
           )}
           {activeTab === "change" && <ChangeTab total={totalAmount} />}
