@@ -27,7 +27,7 @@ const ProductsTab = ({ products, onAddToCart, onCheckout, onReturnDeposit }: Pro
               <h3 className="text-base md:text-lg font-medium text-gray-800">{product.name}</h3>
               <span className="text-base md:text-lg font-bold text-primary">{formatPrice(product.price)}</span>
             </div>
-            {product.deposit && product.deposit > 0 && (
+            {product.deposit !== undefined && product.deposit > 0 && (
               <p className="text-xs md:text-sm text-muted-foreground mt-2">
                 Pfand: {formatPrice(product.deposit)}
               </p>
@@ -36,15 +36,6 @@ const ProductsTab = ({ products, onAddToCart, onCheckout, onReturnDeposit }: Pro
         ))}
       </div>
       <div className="flex flex-col gap-2">
-        <button
-          onClick={onCheckout}
-          className={`flex items-center gap-2 ${
-            isMobile ? 'w-full justify-center' : ''
-          } px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 active:scale-95 transition-all text-sm md:text-base font-medium shadow-sm`}
-        >
-          <ShoppingCart className="w-5 h-5" />
-          <span>Zum Warenkorb</span>
-        </button>
         <button
           onClick={onReturnDeposit}
           className={`flex items-center gap-2 ${
