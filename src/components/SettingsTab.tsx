@@ -103,7 +103,7 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
           </div>
         </div>
 
-        <div className="mt-8 space-y-2">
+        <div className="mt-8 space-y-2 mb-2">
           <h4 className="font-medium text-sm md:text-base mt-3">Verkaufte Produkte</h4>
           <div className="space-y-2">
             {salesStatistics.productSales.map((sale) => (
@@ -119,7 +119,7 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
 
         <button
           onClick={handleResetStatistics}
-          className="w-full px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base mt-4"
+          className="w-full px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base"
         >
           Statistiken zurücksetzen
         </button>
