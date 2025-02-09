@@ -149,7 +149,7 @@ const Index = () => {
         </div>
       </div>
       <footer className="py-4 text-center text-sm text-muted-foreground border-t">
-        made by luca rab - version 1.0.1
+        Made by Luca Rab - Version 1.0.1
       </footer>
     </div>
   );
