@@ -27,7 +27,7 @@ const ProductsTab = ({ products, onAddToCart, onCheckout, onReturnDeposit }: Pro
               <h3 className="text-base md:text-lg font-medium text-gray-800">{product.name}</h3>
               <span className="text-base md:text-lg font-bold text-primary">{formatPrice(product.price)}</span>
             </div>
-            {product.deposit && (
+            {product.deposit && product.deposit > 0 && (
               <p className="text-xs md:text-sm text-muted-foreground mt-2">
                 Pfand: {formatPrice(product.deposit)}
               </p>
