@@ -48,7 +48,7 @@ const CartTab = ({
                   <h3 className="font-medium">{item.name}</h3>
                   <div className="text-sm text-muted-foreground">
                     {formatPrice(item.price)}
-                    {item.deposit && ` + ${formatPrice(item.deposit)} Pfand`}
+                    {item.deposit ? ` + ${formatPrice(item.deposit)} Pfand` : ''}
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
