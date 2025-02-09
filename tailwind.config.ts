@@ -55,7 +55,7 @@ export default {
         },
         money: {
           bill: "#C1E1C1",
-          coin: "#007bff",
+          coin: "#c1c9e1",
         },
       },
       keyframes: {
