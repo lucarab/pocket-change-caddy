@@ -7,6 +7,7 @@ import SettingsTab from "@/components/SettingsTab";
 import { Product, CartItem, Settings } from "@/types/types";
 import { getProducts, saveProducts, getCart, saveCart, getSettings, saveSettings } from "@/utils/localStorage";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("products");
@@ -14,6 +15,7 @@ const Index = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [settings, setSettings] = useState<Settings>(getSettings());
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setProducts(getProducts());
@@ -116,12 +118,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container py-6 space-y-6">
-        <h1 className="text-2xl font-bold text-center">Wechselgeld-Rechner</h1>
+      <div className={`container ${isMobile ? 'px-2 py-4' : 'py-6'} space-y-4 md:space-y-6`}>
+        <h1 className="text-xl md:text-2xl font-bold text-center">Wechselgeld-Rechner</h1>
         
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
         
-        <div className="py-4">
+        <div className="py-2 md:py-4">
           {activeTab === "products" && (
             <ProductsTab 
               products={products} 
