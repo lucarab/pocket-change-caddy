@@ -73,7 +73,7 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
   const { salesStatistics } = settings;
 
   return (
-    <div className="space-y-4 md:space-y-6 animate-fadeIn">
+    <div className="space-y-2 md:space-y-2 animate-fadeIn">
       <div className="p-3 md:p-4 rounded-lg bg-card space-y-3 md:space-y-4">
         <h3 className="font-medium text-sm md:text-base">Verkaufsstatistiken</h3>
         
