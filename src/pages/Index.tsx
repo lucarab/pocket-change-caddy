@@ -150,7 +150,7 @@ const Index = () => {
         </div>
       </div>
       <footer className="py-4 text-center text-sm text-muted-foreground border-t">
-        Made with <Heart className="inline-block w-4 h-4 text-red-500" /> by Luca Rab - <Cog className="inline-block w-4 h-4" /> Version 1.0.1
+        Made with <Heart className="inline-block w-4 h-4 text-red-500 align-middle" /> by Luca Rab - <Cog className="inline-block w-4 h-4 align-middle" /> Version 1.0.1
       </footer>
     </div>
   );
