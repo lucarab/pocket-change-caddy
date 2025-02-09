@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import TabNavigation from "@/components/TabNavigation";
 import ProductsTab from "@/components/ProductsTab";
@@ -6,7 +5,7 @@ import CartTab from "@/components/CartTab";
 import ChangeTab from "@/components/ChangeTab";
 import SettingsTab from "@/components/SettingsTab";
 import { Product, CartItem, Settings } from "@/types/types";
-import { getProducts, saveProducts, getCart, saveCart, getSettings, saveSettings } from "@/utils/localStorage";
+import { getProducts, saveProducts, getCart, saveCart, getSettings, saveSettings, updateSalesStatistics } from "@/utils/localStorage";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
@@ -95,8 +94,10 @@ const Index = () => {
   };
 
   const handleCompleteOrder = () => {
+    updateSalesStatistics(cart);
     handleClearCart();
     setActiveTab("products");
+    setSettings(getSettings());
   };
 
   const totalAmount = cart.reduce(
