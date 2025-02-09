@@ -70,7 +70,7 @@ const Index = () => {
       id: depositId,
       name: "Pfandrückgabe",
       price: -settings.defaultDeposit,
-      deposit: settings.defaultDeposit // Add the deposit value here
+      deposit: 0  // Remove the deposit value here
     };
 
     let newCart: CartItem[];
