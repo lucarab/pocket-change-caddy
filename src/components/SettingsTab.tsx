@@ -125,6 +125,8 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
         </button>
       </div>
 
+      <hr></hr>
+
       <div className="p-3 md:p-4 rounded-lg bg-card space-y-3 md:space-y-4">
         <h3 className="font-medium text-sm md:text-base">Standard Pfand</h3>
         <input
