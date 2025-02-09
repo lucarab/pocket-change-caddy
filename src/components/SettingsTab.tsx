@@ -139,6 +139,8 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
         />
       </div>
 
+      <hr></hr>
+
       <div className="p-3 md:p-4 rounded-lg bg-card space-y-3 md:space-y-4">
         <h3 className="font-medium text-sm md:text-base">Neues Produkt hinzufügen</h3>
         <div className="space-y-3 md:space-y-4">
