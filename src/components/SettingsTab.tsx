@@ -1,9 +1,7 @@
-
 import { useState } from "react";
-import { Plus, Trash, ChartBar } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 import { Product, Settings } from "@/types/types";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface SettingsTabProps {
   products: Product[];
@@ -19,11 +17,6 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
     deposit: "",
   });
   const isMobile = useIsMobile();
-
-  const salesData = products.map(product => ({
-    name: product.name,
-    sales: settings.salesData?.[product.id] || 0
-  }));
 
   const handleAddProduct = () => {
     if (!newProduct.name || !newProduct.price) return;
@@ -65,23 +58,6 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
 
   return (
     <div className="space-y-4 md:space-y-6 animate-fadeIn">
-      <div className="p-3 md:p-4 rounded-lg bg-card space-y-3 md:space-y-4">
-        <div className="flex items-center gap-2">
-          <ChartBar className="w-5 h-5" />
-          <h3 className="font-medium text-sm md:text-base">Verkaufsstatistik</h3>
-        </div>
-        <div className="h-64 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={salesData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="sales" fill="#4f46e5" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
       <div className="p-3 md:p-4 rounded-lg bg-card space-y-3 md:space-y-4">
         <h3 className="font-medium text-sm md:text-base">Standard Pfand</h3>
         <input
