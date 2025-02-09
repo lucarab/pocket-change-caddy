@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import { CurrencyUnit } from "@/types/types";
 import { CURRENCY_UNITS, formatPrice, calculateChange } from "@/utils/money";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { CheckCircle } from "lucide-react";
 
 interface ChangeTabProps {
   total: number;
+  onCompleteOrder: () => void;
 }
 
-const ChangeTab = ({ total }: ChangeTabProps) => {
+const ChangeTab = ({ total, onCompleteOrder }: ChangeTabProps) => {
   const [paid, setPaid] = useState(0);
   const [change, setChange] = useState<CurrencyUnit[]>([]);
   const isMobile = useIsMobile();
@@ -19,6 +21,11 @@ const ChangeTab = ({ total }: ChangeTabProps) => {
 
   const handleAddPayment = (amount: number) => {
     setPaid((prev) => Number((prev + amount).toFixed(2)));
+  };
+
+  const handleReset = () => {
+    setPaid(0);
+    setChange([]);
   };
 
   return (
@@ -76,14 +83,25 @@ const ChangeTab = ({ total }: ChangeTabProps) => {
         </div>
       )}
 
-      <button
-        onClick={() => setPaid(0)}
-        className={`${
-          isMobile ? 'w-full' : ''
-        } px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base`}
-      >
-        Zurücksetzen
-      </button>
+      <div className="flex flex-col gap-2">
+        <button
+          onClick={onCompleteOrder}
+          className={`flex items-center gap-2 ${
+            isMobile ? 'w-full justify-center' : ''
+          } px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base`}
+        >
+          <CheckCircle className="w-5 h-5" />
+          <span>Bestellung abschließen</span>
+        </button>
+        <button
+          onClick={handleReset}
+          className={`${
+            isMobile ? 'w-full' : ''
+          } px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base`}
+        >
+          Zurücksetzen
+        </button>
+      </div>
     </div>
   );
 };

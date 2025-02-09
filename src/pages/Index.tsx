@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import TabNavigation from "@/components/TabNavigation";
 import ProductsTab from "@/components/ProductsTab";
@@ -93,6 +94,11 @@ const Index = () => {
     saveSettings(newSettings);
   };
 
+  const handleCompleteOrder = () => {
+    handleClearCart();
+    setActiveTab("products");
+  };
+
   const totalAmount = cart.reduce(
     (sum, item) => sum + item.price * item.quantity + (item.deposit || 0) * item.quantity,
     0
@@ -124,7 +130,12 @@ const Index = () => {
               onCheckout={() => setActiveTab("change")}
             />
           )}
-          {activeTab === "change" && <ChangeTab total={totalAmount} />}
+          {activeTab === "change" && (
+            <ChangeTab 
+              total={totalAmount} 
+              onCompleteOrder={handleCompleteOrder}
+            />
+          )}
           {activeTab === "settings" && (
             <SettingsTab
               products={products}
