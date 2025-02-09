@@ -65,29 +65,18 @@ const Index = () => {
   const handleReturnDeposit = () => {
     const depositId = "deposit-return";
     const existingDepositReturn = cart.find(item => item.id === depositId);
-    const depositProduct: Product = {
-      id: depositId,
-      name: "Pfandrückgabe",
-      price: -settings.defaultDeposit,
-      deposit: 0  // Keep deposit at 0
-    };
 
-    let newCart: CartItem[];
     if (existingDepositReturn) {
-      newCart = cart.map(item =>
-        item.id === depositId
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
+      handleUpdateQuantity(depositId, 1);
     } else {
-      newCart = [...cart, { ...depositProduct, quantity: 1 }];
+      const depositProduct: Product = {
+        id: depositId,
+        name: "Pfandrückgabe",
+        price: -settings.defaultDeposit,
+        deposit: 0
+      };
+      handleAddToCart(depositProduct);
     }
-    
-    setCart(newCart);
-    saveCart(newCart);
-    
-    updateSalesStatistics([{ ...depositProduct, quantity: 1 }], true);
-    setSettings(getSettings());
   };
 
   const handleCheckout = () => {
