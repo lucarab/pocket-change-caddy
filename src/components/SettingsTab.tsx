@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Plus, Trash, EuroIcon, ArrowDown, ShoppingCart } from "lucide-react";
 import { Product, Settings } from "@/types/types";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { formatPrice } from "@/utils/money";
 
 interface SettingsTabProps {
@@ -104,15 +103,18 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
           </div>
         </div>
 
-        <div className="h-[300px] w-full mt-4">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={salesStatistics.productSales}>
-              <XAxis dataKey="productName" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="quantity" fill="#3b82f6" name="Verkaufte Menge" />
-            </BarChart>
-          </ResponsiveContainer>
+        <div className="mt-4 space-y-2">
+          <h4 className="font-medium text-sm md:text-base">Verkaufte Produkte</h4>
+          <div className="space-y-2">
+            {salesStatistics.productSales.map((sale) => (
+              <div key={sale.productId} className="p-3 rounded-lg bg-muted">
+                <div className="flex justify-between items-center">
+                  <span className="font-medium">{sale.productName}</span>
+                  <span className="text-sm">{sale.quantity}x verkauft</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <button
@@ -213,3 +215,4 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
 };
 
 export default SettingsTab;
+
