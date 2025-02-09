@@ -72,24 +72,14 @@ const Index = () => {
   };
 
   const handleReturnDeposit = () => {
-    const totalDeposit = cart.reduce(
-      (sum, item) => sum + (item.deposit || 0) * item.quantity,
-      0
-    );
+    const depositProduct: Product = {
+      id: `deposit-${Date.now()}`,
+      name: "Pfandrückgabe",
+      price: -settings.defaultDeposit,
+      deposit: 0
+    };
 
-    if (totalDeposit === 0) {
-      toast({
-        title: "Kein Pfand vorhanden",
-        description: "Es gibt keinen Pfand zum Zurückgeben.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    toast({
-      title: "Pfand zurückgegeben",
-      description: `${settings.defaultDeposit.toFixed(2)}€ Pfand wurde zurückgegeben.`,
-    });
+    handleAddToCart(depositProduct);
   };
 
   const handleCheckout = () => {
@@ -148,6 +138,7 @@ const Index = () => {
           {activeTab === "settings" && (
             <SettingsTab
               products={products}
+              settings={settings}
               onUpdateProducts={handleUpdateProducts}
               onUpdateSettings={handleUpdateSettings}
             />

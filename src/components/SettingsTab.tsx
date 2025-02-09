@@ -1,15 +1,17 @@
 
 import { useState } from "react";
 import { Plus, Trash } from "lucide-react";
-import { Product } from "@/types/types";
+import { Product, Settings } from "@/types/types";
 import { formatPrice } from "@/utils/money";
 
 interface SettingsTabProps {
   products: Product[];
+  settings: Settings;
   onUpdateProducts: (products: Product[]) => void;
+  onUpdateSettings: (settings: Settings) => void;
 }
 
-const SettingsTab = ({ products, onUpdateProducts }: SettingsTabProps) => {
+const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }: SettingsTabProps) => {
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
@@ -34,8 +36,27 @@ const SettingsTab = ({ products, onUpdateProducts }: SettingsTabProps) => {
     onUpdateProducts(products.filter((p) => p.id !== id));
   };
 
+  const handleDefaultDepositChange = (value: string) => {
+    onUpdateSettings({
+      ...settings,
+      defaultDeposit: Number(value),
+    });
+  };
+
   return (
     <div className="space-y-6 animate-fadeIn">
+      <div className="p-4 rounded-lg bg-card space-y-4">
+        <h3 className="font-medium">Standard Pfand</h3>
+        <input
+          type="number"
+          placeholder="Standard Pfand (€)"
+          value={settings.defaultDeposit}
+          onChange={(e) => handleDefaultDepositChange(e.target.value)}
+          className="w-full p-2 rounded-md border"
+          step="0.01"
+        />
+      </div>
+
       <div className="p-4 rounded-lg bg-card space-y-4">
         <h3 className="font-medium">Neues Produkt hinzufügen</h3>
         <div className="space-y-4">
