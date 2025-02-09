@@ -1,5 +1,5 @@
 
-import { Plus, Minus, Trash } from "lucide-react";
+import { Plus, Minus, Trash, ArrowDown, CreditCard, ShoppingCart } from "lucide-react";
 import { CartItem } from "@/types/types";
 import { formatPrice } from "@/utils/money";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -30,8 +30,6 @@ const CartTab = ({
 
   const depositTotal = items.reduce(
     (sum, item) => {
-      // Only include positive deposits in the deposit total
-      // Negative deposits (deposit returns) are included in itemsTotal
       if (item.deposit && item.deposit > 0) {
         return sum + item.deposit * item.quantity;
       }
@@ -67,21 +65,21 @@ const CartTab = ({
                   <div className="flex items-center space-x-1 md:space-x-2">
                     <button
                       onClick={() => onUpdateQuantity(item.id, -1)}
-                      className="p-1 rounded-md hover:bg-muted"
+                      className="p-1 rounded-md hover:bg-muted active:scale-95 transition-transform"
                     >
                       <Minus className="w-3 h-3 md:w-4 md:h-4" />
                     </button>
                     <span className="w-6 md:w-8 text-center text-sm md:text-base">{item.quantity}</span>
                     <button
                       onClick={() => onUpdateQuantity(item.id, 1)}
-                      className="p-1 rounded-md hover:bg-muted"
+                      className="p-1 rounded-md hover:bg-muted active:scale-95 transition-transform"
                     >
                       <Plus className="w-3 h-3 md:w-4 md:h-4" />
                     </button>
                   </div>
                   <button
                     onClick={() => onRemoveItem(item.id)}
-                    className="p-1 text-destructive hover:bg-destructive/10 rounded-md"
+                    className="p-1 text-destructive hover:bg-destructive/10 rounded-md active:scale-95 transition-transform"
                   >
                     <Trash className="w-3 h-3 md:w-4 md:h-4" />
                   </button>
@@ -108,20 +106,23 @@ const CartTab = ({
           <div className="flex flex-col space-y-2">
             <button
               onClick={onReturnDeposit}
-              className="px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base"
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:opacity-90 active:scale-95 transition-all text-sm md:text-base"
             >
+              <ArrowDown className="w-4 h-4 md:w-5 md:h-5" />
               Pfand zurückgeben
             </button>
             <button
               onClick={onClearCart}
-              className="px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base"
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:opacity-90 active:scale-95 transition-all text-sm md:text-base"
             >
+              <ShoppingCart className="w-4 h-4 md:w-5 md:h-5" />
               Warenkorb leeren
             </button>
             <button
               onClick={onCheckout}
-              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base"
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 active:scale-95 transition-all text-sm md:text-base"
             >
+              <CreditCard className="w-4 h-4 md:w-5 md:h-5" />
               Zur Kasse
             </button>
           </div>
