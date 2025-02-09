@@ -86,7 +86,7 @@ const ChangeTab = ({ total, onCompleteOrder }: ChangeTabProps) => {
       <div className="flex flex-col gap-2">
         <button
           onClick={onCompleteOrder}
-          className={`flex items-center gap-2 ${
+          className={`${
             isMobile ? 'w-full justify-center' : ''
           } px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base`}
         >
