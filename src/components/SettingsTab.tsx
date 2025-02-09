@@ -81,7 +81,7 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
           <div className="p-4 rounded-lg bg-muted">
             <div className="flex items-center gap-2 text-primary mb-2">
               <EuroIcon className="w-4 h-4" />
-              <span className="font-medium">Gesamtumsatz</span>
+              <span className="font-medium">Gesamtumsatz (ohne Pfand)</span>
             </div>
             <span className="text-lg font-bold">{formatPrice(salesStatistics.totalRevenue)}</span>
           </div>
