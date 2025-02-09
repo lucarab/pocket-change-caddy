@@ -8,6 +8,7 @@ import SettingsTab from "@/components/SettingsTab";
 import { Product, CartItem, Settings } from "@/types/types";
 import { getProducts, saveProducts, getCart, saveCart, getSettings, saveSettings, updateSalesStatistics } from "@/utils/localStorage";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Heart, Cog } from "lucide-react";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("products");
@@ -149,7 +150,7 @@ const Index = () => {
         </div>
       </div>
       <footer className="py-4 text-center text-sm text-muted-foreground border-t">
-        Made by Luca Rab - Version 1.0.1
+        Made with <Heart className="inline-block w-4 h-4 mx-1 text-red-500" /> by Luca Rab - <Cog className="inline-block w-4 h-4 mx-1 animate-spin" /> Version 1.0.1
       </footer>
     </div>
   );
