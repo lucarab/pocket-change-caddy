@@ -1,5 +1,5 @@
 
-import { Product, CartItem, Settings } from '../types/types';
+import { Product, CartItem, Settings, SalesStatistics } from '../types/types';
 
 const PRODUCTS_KEY = 'products';
 const CART_KEY = 'cart';
@@ -40,4 +40,52 @@ const getDefaultProducts = (): Product[] => [
 
 const getDefaultSettings = (): Settings => ({
   defaultDeposit: 0.25,
+  salesStatistics: {
+    totalRevenue: 0,
+    totalDepositsCollected: 0,
+    totalDepositsReturned: 0,
+    productSales: [],
+  },
 });
+
+export const updateSalesStatistics = (cart: CartItem[], isDeposit: boolean = false) => {
+  const settings = getSettings();
+  const { salesStatistics } = settings;
+
+  if (isDeposit) {
+    // Handle deposit return
+    const depositAmount = cart.reduce((total, item) => {
+      return total + (item.deposit || 0) * item.quantity;
+    }, 0);
+    salesStatistics.totalDepositsReturned += depositAmount;
+  } else {
+    // Handle regular sale
+    cart.forEach((item) => {
+      const revenue = item.price * item.quantity;
+      const depositCollected = (item.deposit || 0) * item.quantity;
+
+      salesStatistics.totalRevenue += revenue;
+      salesStatistics.totalDepositsCollected += depositCollected;
+
+      const existingProductSale = salesStatistics.productSales.find(
+        (sale) => sale.productId === item.id
+      );
+
+      if (existingProductSale) {
+        existingProductSale.quantity += item.quantity;
+        existingProductSale.revenue += revenue;
+        existingProductSale.depositCollected += depositCollected;
+      } else {
+        salesStatistics.productSales.push({
+          productId: item.id,
+          productName: item.name,
+          quantity: item.quantity,
+          revenue: revenue,
+          depositCollected: depositCollected,
+        });
+      }
+    });
+  }
+
+  saveSettings(settings);
+};

@@ -16,6 +16,22 @@ export interface CurrencyUnit {
   type: 'bill' | 'coin';
 }
 
+export interface ProductSales {
+  productId: string;
+  productName: string;
+  quantity: number;
+  revenue: number;
+  depositCollected: number;
+}
+
+export interface SalesStatistics {
+  totalRevenue: number;
+  totalDepositsCollected: number;
+  totalDepositsReturned: number;
+  productSales: ProductSales[];
+}
+
 export interface Settings {
   defaultDeposit: number;
+  salesStatistics: SalesStatistics;
 }

@@ -1,7 +1,10 @@
+
 import { useState } from "react";
-import { Plus, Trash } from "lucide-react";
+import { Plus, Trash, EuroIcon, ArrowDown, ShoppingCart } from "lucide-react";
 import { Product, Settings } from "@/types/types";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { formatPrice } from "@/utils/money";
 
 interface SettingsTabProps {
   products: Product[];
@@ -56,8 +59,70 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
     });
   };
 
+  const handleResetStatistics = () => {
+    onUpdateSettings({
+      ...settings,
+      salesStatistics: {
+        totalRevenue: 0,
+        totalDepositsCollected: 0,
+        totalDepositsReturned: 0,
+        productSales: [],
+      },
+    });
+  };
+
+  const { salesStatistics } = settings;
+
   return (
     <div className="space-y-4 md:space-y-6 animate-fadeIn">
+      <div className="p-3 md:p-4 rounded-lg bg-card space-y-3 md:space-y-4">
+        <h3 className="font-medium text-sm md:text-base">Verkaufsstatistiken</h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-4 rounded-lg bg-muted">
+            <div className="flex items-center gap-2 text-primary mb-2">
+              <EuroIcon className="w-4 h-4" />
+              <span className="font-medium">Gesamtumsatz</span>
+            </div>
+            <span className="text-lg font-bold">{formatPrice(salesStatistics.totalRevenue)}</span>
+          </div>
+          
+          <div className="p-4 rounded-lg bg-muted">
+            <div className="flex items-center gap-2 text-primary mb-2">
+              <ShoppingCart className="w-4 h-4" />
+              <span className="font-medium">Pfand eingenommen</span>
+            </div>
+            <span className="text-lg font-bold">{formatPrice(salesStatistics.totalDepositsCollected)}</span>
+          </div>
+          
+          <div className="p-4 rounded-lg bg-muted">
+            <div className="flex items-center gap-2 text-primary mb-2">
+              <ArrowDown className="w-4 h-4" />
+              <span className="font-medium">Pfand zurückgegeben</span>
+            </div>
+            <span className="text-lg font-bold">{formatPrice(salesStatistics.totalDepositsReturned)}</span>
+          </div>
+        </div>
+
+        <div className="h-[300px] w-full mt-4">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={salesStatistics.productSales}>
+              <XAxis dataKey="productName" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="quantity" fill="#3b82f6" name="Verkaufte Menge" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <button
+          onClick={handleResetStatistics}
+          className="w-full px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base"
+        >
+          Statistiken zurücksetzen
+        </button>
+      </div>
+
       <div className="p-3 md:p-4 rounded-lg bg-card space-y-3 md:space-y-4">
         <h3 className="font-medium text-sm md:text-base">Standard Pfand</h3>
         <input
