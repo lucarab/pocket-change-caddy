@@ -22,15 +22,25 @@ const CartTab = ({
   onCheckout,
 }: CartTabProps) => {
   const isMobile = useIsMobile();
-  const total = items.reduce(
-    (sum, item) => sum + item.price * item.quantity + (item.deposit || 0) * item.quantity,
+
+  const itemsTotal = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
     0
   );
 
   const depositTotal = items.reduce(
-    (sum, item) => sum + (item.deposit || 0) * item.quantity,
+    (sum, item) => {
+      // Only include positive deposits in the deposit total
+      // Negative deposits (deposit returns) are included in itemsTotal
+      if (item.deposit && item.deposit > 0) {
+        return sum + item.deposit * item.quantity;
+      }
+      return sum;
+    },
     0
   );
+
+  const total = itemsTotal + depositTotal;
 
   return (
     <div className="space-y-3 md:space-y-4 animate-fadeIn">
@@ -49,8 +59,8 @@ const CartTab = ({
                 <div className="flex-1">
                   <h3 className="text-sm md:text-base font-medium">{item.name}</h3>
                   <div className="text-xs md:text-sm text-muted-foreground">
-                    {formatPrice(item.price)}
-                    {item.deposit ? ` + ${formatPrice(item.deposit)} Pfand` : ''}
+                    {formatPrice(item.price)} × {item.quantity} = {formatPrice(item.price * item.quantity)}
+                    {item.deposit ? ` + ${formatPrice(item.deposit * item.quantity)} Pfand` : ''}
                   </div>
                 </div>
                 <div className="flex items-center space-x-2 md:space-x-4">
@@ -83,7 +93,7 @@ const CartTab = ({
           <div className="p-3 md:p-4 rounded-lg bg-muted space-y-2">
             <div className="flex justify-between text-xs md:text-sm">
               <span>Zwischensumme:</span>
-              <span>{formatPrice(total - depositTotal)}</span>
+              <span>{formatPrice(itemsTotal)}</span>
             </div>
             <div className="flex justify-between text-xs md:text-sm">
               <span>Pfand:</span>

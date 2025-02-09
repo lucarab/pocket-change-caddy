@@ -90,7 +90,7 @@ const Index = () => {
   };
 
   const handleCheckout = () => {
-    setActiveTab("change");
+    setActiveTab("cart");
   };
 
   const handleUpdateProducts = (newProducts: Product[]) => {
