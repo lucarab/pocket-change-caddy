@@ -1,5 +1,5 @@
 
-import { Plus, CreditCard, ArrowDown, ShoppingCart } from "lucide-react";
+import { ArrowDown, ShoppingCart } from "lucide-react";
 import { Product } from "@/types/types";
 import { formatPrice } from "@/utils/money";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -20,24 +20,18 @@ const ProductsTab = ({ products, onAddToCart, onCheckout, onReturnDeposit }: Pro
         {products.map((product) => (
           <div
             key={product.id}
-            className="p-4 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100"
+            onClick={() => onAddToCart(product)}
+            className="p-4 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 cursor-pointer active:scale-95"
           >
-            <div className="flex justify-between items-start mb-3">
+            <div className="flex justify-between items-start">
               <h3 className="text-base md:text-lg font-medium text-gray-800">{product.name}</h3>
               <span className="text-base md:text-lg font-bold text-primary">{formatPrice(product.price)}</span>
             </div>
             {product.deposit && (
-              <p className="text-xs md:text-sm text-muted-foreground mb-4">
+              <p className="text-xs md:text-sm text-muted-foreground mt-2">
                 Pfand: {formatPrice(product.deposit)}
               </p>
             )}
-            <button
-              onClick={() => onAddToCart(product)}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-primary/90 text-primary-foreground rounded-md hover:bg-primary transition-colors active:scale-95 transition-transform text-sm md:text-base font-medium"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Zum Warenkorb</span>
-            </button>
           </div>
         ))}
       </div>
