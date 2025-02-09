@@ -37,6 +37,15 @@ const ProductsTab = ({ products, onAddToCart, onCheckout, onReturnDeposit }: Pro
       </div>
       <div className="flex flex-col gap-2">
         <button
+          onClick={onCheckout}
+          className={`flex items-center gap-2 ${
+            isMobile ? 'w-full justify-center' : ''
+          } px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 active:scale-95 transition-all text-sm md:text-base font-medium shadow-sm`}
+        >
+          <ShoppingCart className="w-5 h-5" />
+          <span>Zum Warenkorb</span>
+        </button>
+        <button
           onClick={onReturnDeposit}
           className={`flex items-center gap-2 ${
             isMobile ? 'w-full justify-center' : ''
