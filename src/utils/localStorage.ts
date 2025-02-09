@@ -25,7 +25,15 @@ export const saveCart = (cart: CartItem[]) => {
 
 export const getSettings = (): Settings => {
   const settings = localStorage.getItem(SETTINGS_KEY);
-  return settings ? JSON.parse(settings) : getDefaultSettings();
+  if (settings) {
+    const parsedSettings = JSON.parse(settings);
+    // Ensure salesStatistics exists
+    if (!parsedSettings.salesStatistics) {
+      parsedSettings.salesStatistics = getDefaultSalesStatistics();
+    }
+    return parsedSettings;
+  }
+  return getDefaultSettings();
 };
 
 export const saveSettings = (settings: Settings) => {
@@ -38,14 +46,16 @@ const getDefaultProducts = (): Product[] => [
   { id: '3', name: 'Wasser', price: 1.50, deposit: 0.25 },
 ];
 
+const getDefaultSalesStatistics = (): SalesStatistics => ({
+  totalRevenue: 0,
+  totalDepositsCollected: 0,
+  totalDepositsReturned: 0,
+  productSales: [],
+});
+
 const getDefaultSettings = (): Settings => ({
   defaultDeposit: 0.25,
-  salesStatistics: {
-    totalRevenue: 0,
-    totalDepositsCollected: 0,
-    totalDepositsReturned: 0,
-    productSales: [],
-  },
+  salesStatistics: getDefaultSalesStatistics(),
 });
 
 export const updateSalesStatistics = (cart: CartItem[], isDeposit: boolean = false) => {
