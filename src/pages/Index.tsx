@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import TabNavigation from "@/components/TabNavigation";
 import ProductsTab from "@/components/ProductsTab";
@@ -70,7 +69,7 @@ const Index = () => {
       id: depositId,
       name: "Pfandrückgabe",
       price: -settings.defaultDeposit,
-      deposit: 0  // Remove the deposit value here
+      deposit: 0  // Keep deposit at 0
     };
 
     let newCart: CartItem[];
@@ -84,11 +83,9 @@ const Index = () => {
       newCart = [...cart, { ...depositProduct, quantity: 1 }];
     }
     
-    // Update cart
     setCart(newCart);
     saveCart(newCart);
     
-    // Update statistics for the deposit return
     updateSalesStatistics([{ ...depositProduct, quantity: 1 }], true);
     setSettings(getSettings());
   };

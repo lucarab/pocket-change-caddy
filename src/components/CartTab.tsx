@@ -30,6 +30,10 @@ const CartTab = ({
 
   const depositTotal = items.reduce(
     (sum, item) => {
+      // Skip deposit calculation for Pfandrückgabe items
+      if (item.id === 'deposit-return') {
+        return sum;
+      }
       if (item.deposit && item.deposit > 0) {
         return sum + item.deposit * item.quantity;
       }
