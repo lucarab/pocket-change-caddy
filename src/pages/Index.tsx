@@ -107,8 +107,8 @@ const Index = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className={`container ${isMobile ? 'px-2 py-4' : 'py-6'} space-y-4`}>
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className={`container ${isMobile ? 'px-2 py-4' : 'py-6'} space-y-4 flex-grow`}>
         <h1 className="text-xl md:text-2xl font-bold text-center text-primary">Wechselgeld-Rechner</h1>
         
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
@@ -148,6 +148,9 @@ const Index = () => {
           )}
         </div>
       </div>
+      <footer className="py-4 text-center text-sm text-muted-foreground border-t">
+        made by luca rab - version 1.0.1
+      </footer>
     </div>
   );
 };
