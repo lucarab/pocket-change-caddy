@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import TabNavigation from "@/components/TabNavigation";
 import ProductsTab from "@/components/ProductsTab";
@@ -65,18 +66,31 @@ const Index = () => {
   const handleReturnDeposit = () => {
     const depositId = "deposit-return";
     const existingDepositReturn = cart.find(item => item.id === depositId);
+    const depositProduct: Product = {
+      id: depositId,
+      name: "Pfandrückgabe",
+      price: -settings.defaultDeposit,
+      deposit: 0
+    };
 
+    let newCart: CartItem[];
     if (existingDepositReturn) {
-      handleUpdateQuantity(depositId, 1);
+      newCart = cart.map(item =>
+        item.id === depositId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
     } else {
-      const depositProduct: Product = {
-        id: depositId,
-        name: "Pfandrückgabe",
-        price: -settings.defaultDeposit,
-        deposit: 0
-      };
-      handleAddToCart(depositProduct);
+      newCart = [...cart, { ...depositProduct, quantity: 1 }];
     }
+    
+    // Update cart
+    setCart(newCart);
+    saveCart(newCart);
+    
+    // Update statistics for the deposit return
+    updateSalesStatistics([{ ...depositProduct, quantity: 1 }], true);
+    setSettings(getSettings());
   };
 
   const handleCheckout = () => {
