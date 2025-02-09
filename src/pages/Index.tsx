@@ -5,19 +5,21 @@ import ProductsTab from "@/components/ProductsTab";
 import CartTab from "@/components/CartTab";
 import ChangeTab from "@/components/ChangeTab";
 import SettingsTab from "@/components/SettingsTab";
-import { Product, CartItem } from "@/types/types";
-import { getProducts, saveProducts, getCart, saveCart } from "@/utils/localStorage";
+import { Product, CartItem, Settings } from "@/types/types";
+import { getProducts, saveProducts, getCart, saveCart, getSettings, saveSettings } from "@/utils/localStorage";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("products");
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [settings, setSettings] = useState<Settings>(getSettings());
   const { toast } = useToast();
 
   useEffect(() => {
     setProducts(getProducts());
     setCart(getCart());
+    setSettings(getSettings());
   }, []);
 
   const handleAddToCart = (product: Product) => {
@@ -70,14 +72,15 @@ const Index = () => {
   };
 
   const handleReturnDeposit = () => {
-    const bottleCount = prompt("Anzahl der zurückgegebenen Flaschen:");
-    if (bottleCount === null) return;
+    const totalDeposit = cart.reduce(
+      (sum, item) => sum + (item.deposit || 0) * item.quantity,
+      0
+    );
 
-    const count = parseInt(bottleCount);
-    if (isNaN(count) || count < 1) {
+    if (totalDeposit === 0) {
       toast({
-        title: "Ungültige Eingabe",
-        description: "Bitte geben Sie eine gültige Anzahl ein.",
+        title: "Kein Pfand vorhanden",
+        description: "Es gibt keinen Pfand zum Zurückgeben.",
         variant: "destructive",
       });
       return;
@@ -85,7 +88,7 @@ const Index = () => {
 
     toast({
       title: "Pfand zurückgegeben",
-      description: `${count} Flaschen wurden zurückgegeben.`,
+      description: `${settings.defaultDeposit.toFixed(2)}€ Pfand wurde zurückgegeben.`,
     });
   };
 
@@ -99,6 +102,15 @@ const Index = () => {
     toast({
       title: "Produkte aktualisiert",
       description: "Die Produktliste wurde erfolgreich aktualisiert.",
+    });
+  };
+
+  const handleUpdateSettings = (newSettings: Settings) => {
+    setSettings(newSettings);
+    saveSettings(newSettings);
+    toast({
+      title: "Einstellungen aktualisiert",
+      description: "Die Einstellungen wurden erfolgreich gespeichert.",
     });
   };
 
@@ -116,7 +128,11 @@ const Index = () => {
         
         <div className="py-4">
           {activeTab === "products" && (
-            <ProductsTab products={products} onAddToCart={handleAddToCart} />
+            <ProductsTab 
+              products={products} 
+              onAddToCart={handleAddToCart}
+              onCheckout={handleCheckout}
+            />
           )}
           {activeTab === "cart" && (
             <CartTab
@@ -132,7 +148,9 @@ const Index = () => {
           {activeTab === "settings" && (
             <SettingsTab
               products={products}
+              settings={settings}
               onUpdateProducts={handleUpdateProducts}
+              onUpdateSettings={handleUpdateSettings}
             />
           )}
         </div>

@@ -15,3 +15,7 @@ export interface CurrencyUnit {
   label: string;
   type: 'bill' | 'coin';
 }
+
+export interface Settings {
+  defaultDeposit: number;
+}
