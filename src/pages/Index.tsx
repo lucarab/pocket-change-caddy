@@ -93,7 +93,7 @@ const Index = () => {
   };
 
   const handleCheckout = () => {
-    setActiveTab("change");
+    setActiveTab("cart");
   };
 
   const handleUpdateProducts = (newProducts: Product[]) => {
@@ -148,7 +148,6 @@ const Index = () => {
           {activeTab === "settings" && (
             <SettingsTab
               products={products}
-              settings={settings}
               onUpdateProducts={handleUpdateProducts}
               onUpdateSettings={handleUpdateSettings}
             />
