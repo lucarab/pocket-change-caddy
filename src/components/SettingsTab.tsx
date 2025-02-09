@@ -36,6 +36,19 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
     onUpdateProducts(products.filter((p) => p.id !== id));
   };
 
+  const handleUpdateProduct = (id: string, field: 'price' | 'deposit', value: string) => {
+    const newProducts = products.map(product => {
+      if (product.id === id) {
+        return {
+          ...product,
+          [field]: value ? Number(value) : field === 'deposit' ? undefined : 0
+        };
+      }
+      return product;
+    });
+    onUpdateProducts(newProducts);
+  };
+
   const handleDefaultDepositChange = (value: string) => {
     onUpdateSettings({
       ...settings,
@@ -100,11 +113,25 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
             key={product.id}
             className="flex items-center justify-between p-4 rounded-lg bg-card"
           >
-            <div>
+            <div className="flex-1 space-y-2">
               <h4 className="font-medium">{product.name}</h4>
-              <div className="text-sm text-muted-foreground">
-                {formatPrice(product.price)}
-                {product.deposit && ` + ${formatPrice(product.deposit)} Pfand`}
+              <div className="flex space-x-2">
+                <input
+                  type="number"
+                  value={product.price}
+                  onChange={(e) => handleUpdateProduct(product.id, 'price', e.target.value)}
+                  className="w-24 p-2 text-sm rounded-md border"
+                  step="0.01"
+                  placeholder="Preis"
+                />
+                <input
+                  type="number"
+                  value={product.deposit || ''}
+                  onChange={(e) => handleUpdateProduct(product.id, 'deposit', e.target.value)}
+                  className="w-24 p-2 text-sm rounded-md border"
+                  step="0.01"
+                  placeholder="Pfand"
+                />
               </div>
             </div>
             <button
