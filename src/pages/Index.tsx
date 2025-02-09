@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import TabNavigation from "@/components/TabNavigation";
 import ProductsTab from "@/components/ProductsTab";
@@ -112,6 +111,7 @@ const Index = () => {
               products={products} 
               onAddToCart={handleAddToCart}
               onCheckout={handleCheckout}
+              onReturnDeposit={handleReturnDeposit}
             />
           )}
           {activeTab === "cart" && (
@@ -140,4 +140,3 @@ const Index = () => {
 };
 
 export default Index;
-

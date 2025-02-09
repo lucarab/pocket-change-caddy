@@ -1,5 +1,5 @@
 
-import { Plus, CreditCard } from "lucide-react";
+import { Plus, CreditCard, ArrowDown } from "lucide-react";
 import { Product } from "@/types/types";
 import { formatPrice } from "@/utils/money";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -8,9 +8,10 @@ interface ProductsTabProps {
   products: Product[];
   onAddToCart: (product: Product) => void;
   onCheckout: () => void;
+  onReturnDeposit: () => void;
 }
 
-const ProductsTab = ({ products, onAddToCart, onCheckout }: ProductsTabProps) => {
+const ProductsTab = ({ products, onAddToCart, onCheckout, onReturnDeposit }: ProductsTabProps) => {
   const isMobile = useIsMobile();
 
   return (
@@ -40,7 +41,7 @@ const ProductsTab = ({ products, onAddToCart, onCheckout }: ProductsTabProps) =>
           </div>
         ))}
       </div>
-      <div className="flex justify-end">
+      <div className="flex flex-col gap-2">
         <button
           onClick={onCheckout}
           className={`flex items-center gap-2 ${
@@ -50,10 +51,18 @@ const ProductsTab = ({ products, onAddToCart, onCheckout }: ProductsTabProps) =>
           <CreditCard className="w-5 h-5" />
           <span>Bezahlen</span>
         </button>
+        <button
+          onClick={onReturnDeposit}
+          className={`flex items-center gap-2 ${
+            isMobile ? 'w-full justify-center' : ''
+          } px-6 py-3 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors text-sm md:text-base font-medium shadow-sm`}
+        >
+          <ArrowDown className="w-5 h-5" />
+          <span>Pfand zurückgeben</span>
+        </button>
       </div>
     </div>
   );
 };
 
 export default ProductsTab;
-
