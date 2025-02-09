@@ -179,7 +179,7 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
 
       <hr></hr>
 
-      <div className="space-y-3 md:space-y-4">
+      <div className="p-3 md:p-4 rounded-lg bg-card space-y-3 md:space-y-4">
         <h3 className="font-medium text-sm md:text-base">Produkte verwalten</h3>
         {products.map((product) => (
           <div
