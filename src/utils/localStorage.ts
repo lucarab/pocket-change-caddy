@@ -58,19 +58,17 @@ const getDefaultSettings = (): Settings => ({
   salesStatistics: getDefaultSalesStatistics(),
 });
 
-export const updateSalesStatistics = (cart: CartItem[], isDeposit: boolean = false) => {
+export const updateSalesStatistics = (cart: CartItem[]) => {
   const settings = getSettings();
   const { salesStatistics } = settings;
 
-  if (isDeposit) {
-    // Handle deposit return
-    const depositAmount = cart.reduce((total, item) => {
-      return total + (item.deposit || 0) * item.quantity;
-    }, 0);
-    salesStatistics.totalDepositsReturned += depositAmount;
-  } else {
-    // Handle regular sale
-    cart.forEach((item) => {
+  cart.forEach((item) => {
+    // Check if this is a deposit return item
+    if (item.id === 'deposit-return') {
+      // Only update the deposit returns, not revenue
+      salesStatistics.totalDepositsReturned += Math.abs(item.price * item.quantity);
+    } else {
+      // Regular sale
       const revenue = item.price * item.quantity;
       const depositCollected = (item.deposit || 0) * item.quantity;
 
@@ -94,8 +92,8 @@ export const updateSalesStatistics = (cart: CartItem[], isDeposit: boolean = fal
           depositCollected: depositCollected,
         });
       }
-    });
-  }
+    }
+  });
 
   saveSettings(settings);
 };
