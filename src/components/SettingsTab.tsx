@@ -75,7 +75,7 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
   return (
     <div className="space-y-2 md:space-y-2 animate-fadeIn">
       <div className="p-3 md:p-4 rounded-lg bg-card space-y-1 md:space-y-1">
-        <h3 className="font-medium text-sm md:text-base">Verkaufsstatistiken</h3>
+        <h3 className="font-medium text-sm md:text-base mb-2">Verkaufsstatistiken</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 rounded-lg bg-muted">
@@ -119,7 +119,7 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
 
         <button
           onClick={handleResetStatistics}
-          className="w-full px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base"
+          className="w-full px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:opacity-90 transition-opacity text-sm md:text-base mt-4"
         >
           Statistiken zurücksetzen
         </button>
