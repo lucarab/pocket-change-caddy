@@ -2,7 +2,6 @@
 import { CurrencyUnit } from '../types/types';
 
 export const CURRENCY_UNITS: CurrencyUnit[] = [
-  { value: 100, label: '100€', type: 'bill' },
   { value: 50, label: '50€', type: 'bill' },
   { value: 20, label: '20€', type: 'bill' },
   { value: 10, label: '10€', type: 'bill' },
@@ -27,12 +26,22 @@ export const calculateChange = (paid: number, total: number): CurrencyUnit[] => 
   
   if (change <= 0) return result;
 
+  // Round to 2 decimal places to avoid floating point precision issues
+  change = Number(change.toFixed(2));
+
   for (const unit of CURRENCY_UNITS) {
-    while (change >= unit.value) {
-      result.push(unit);
-      change = Number((change - unit.value).toFixed(2));
+    // Calculate how many of this unit we need
+    const count = Math.floor(change / unit.value);
+    if (count > 0) {
+      // Add this unit to the result as many times as needed
+      for (let i = 0; i < count; i++) {
+        result.push(unit);
+      }
+      // Subtract the used amount from change
+      change = Number((change - (count * unit.value)).toFixed(2));
     }
   }
 
   return result;
 };
+
