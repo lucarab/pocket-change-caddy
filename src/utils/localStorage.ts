@@ -40,4 +40,6 @@ const getDefaultProducts = (): Product[] => [
 
 const getDefaultSettings = (): Settings => ({
   defaultDeposit: 0.25,
+  salesData: {},
 });
+

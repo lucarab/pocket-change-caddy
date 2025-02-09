@@ -18,4 +18,6 @@ export interface CurrencyUnit {
 
 export interface Settings {
   defaultDeposit: number;
+  salesData: { [productId: string]: number };
 }
+
