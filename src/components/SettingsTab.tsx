@@ -103,7 +103,9 @@ const SettingsTab = ({ products, settings, onUpdateProducts, onUpdateSettings }:
           </div>
         </div>
 
-        <div className="mt-4 space-y-2">
+        <hr></hr>
+
+        <div className="p-3 md:p-4 rounded-lg bg-card space-y-3 md:space-y-4">
           <h4 className="font-medium text-sm md:text-base">Verkaufte Produkte</h4>
           <div className="space-y-2">
             {salesStatistics.productSales.map((sale) => (
