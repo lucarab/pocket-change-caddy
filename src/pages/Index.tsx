@@ -8,7 +8,7 @@ import SettingsTab from "@/components/SettingsTab";
 import { Product, CartItem, Settings } from "@/types/types";
 import { getProducts, saveProducts, getCart, saveCart, getSettings, saveSettings, updateSalesStatistics } from "@/utils/localStorage";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Heart, Cog } from "lucide-react";
+import { Heart, Cog, Calculator } from "lucide-react";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("products");
@@ -110,7 +110,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <div className={`container ${isMobile ? 'px-2 py-4' : 'py-6'} space-y-4 flex-grow`}>
-        <h1 className="text-xl md:text-2xl font-bold text-center text-primary">Wechselgeld-Rechner</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-center text-primary"><Calculator className="inline-block w-6 h-6" /> Wechselgeld-Rechner</h1>
         
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
         
