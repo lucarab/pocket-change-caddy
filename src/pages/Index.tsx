@@ -72,14 +72,20 @@ const Index = () => {
   };
 
   const handleReturnDeposit = () => {
-    const depositProduct: Product = {
-      id: `deposit-${Date.now()}`,
-      name: "Pfandrückgabe",
-      price: -settings.defaultDeposit,
-      deposit: 0
-    };
+    const depositId = "deposit-return";
+    const existingDepositReturn = cart.find(item => item.id === depositId);
 
-    handleAddToCart(depositProduct);
+    if (existingDepositReturn) {
+      handleUpdateQuantity(depositId, 1);
+    } else {
+      const depositProduct: Product = {
+        id: depositId,
+        name: "Pfandrückgabe",
+        price: -settings.defaultDeposit,
+        deposit: 0
+      };
+      handleAddToCart(depositProduct);
+    }
   };
 
   const handleCheckout = () => {
