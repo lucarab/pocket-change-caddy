@@ -42,7 +42,7 @@ export const saveSettings = (settings: Settings) => {
 
 const getDefaultProducts = (): Product[] => [
   { id: '1', name: 'Bier', price: 3.50, deposit: 2.00 },
-  { id: '2', name: 'Cola', price: 2.50, deposit: 2.00 },
+  { id: '2', name: 'Schnaps', price: 4, deposit: 2.00 },
   { id: '3', name: 'Wasser', price: 1.50, deposit: 2.00 },
 ];
 
